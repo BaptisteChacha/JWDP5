@@ -21,24 +21,18 @@ function displayProduct(url) {
                 //On crée la classe div comme on la souhaite
                 product.innerHTML = `
                 <div class="card border-primary shadow">
-                    <img class=”card-img-top” src="${element.imageUrl}" alt="Présentation" width="100%">
+                    <img class="card-img-top" src="${element.imageUrl}" alt="Présentation" width="100%">
                     <div class="card-body">
                         <h5 class="card-title">${element.name}</h5>
                         <p class="card-text">Prix: ${element.price / 100} euros</p>
                         <button class="btn btn-secondary mb-4" role="button" 
-                        onClick="addToCart('${element.name}', '${element.price}', '${element._id}'); afficherResultat()">Ajouter au panier</button>
+                        onClick="addToCart('${element.name}', '${element.price}', '${element._id}', '${element.imageUrl}'); afficherResultat()">Ajouter au panier</button>
                         
                     </div>
                 </div>
             `
                 product.className = "col-12 col-lg-4"
                 productDiv.appendChild(product)
-
-                let total = document.createElement('div')
-                //On crée la classe div comme on la souhaite
-                total.innerHTML = (localStorage.getItem('cart'))
-                total.className = "col-12 col-lg-4"
-                productDiv.appendChild(total)
             });
 
         }
@@ -49,7 +43,7 @@ function displayProduct(url) {
 }
 
 
-function addToCart(name, price, id) {
+function addToCart(name, price, id, imageUrl) {
     //On crée une variable avec les résultat du panier
     const localS = localStorage.getItem("cart")
     price = parseFloat(price)
@@ -67,7 +61,9 @@ function addToCart(name, price, id) {
     data.items.push({
         name: name,
         price: price,
-        id: id
+        id: id,
+        imageUrl: imageUrl,
+
     }
     )
     data.total = data.total + price
@@ -100,6 +96,12 @@ const displayCart = () => {
     })
 }
 
-const totalPrice = document.getElementById('total')
-let prices = document.createElement('div')
-prices.innerHTML = data.total
+const TotalPanier = () => {
+    const totalPrice = document.getElementById('total')
+    const cart = JSON.parse(localStorage.getItem("cart"))
+    let prices = document.createElement('div')
+    //On crée la classe div comme on la souhaite
+    prices.innerHTML = ` <p class="card-text"> <strong>Prix total: </strong> ${cart.total / 100}`
+    prices.className = "col-12 col-lg-4"
+    totalPrice.appendChild(prices)
+}

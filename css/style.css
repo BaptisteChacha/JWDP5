@@ -1,0 +1,32 @@
+.card {
+  text-align: center;
+}
+.card:hover {
+  transform: scale(1.1);
+}
+.card-text {
+  min-height: 6em;
+}
+
+.bg-light {
+  padding-top: 5%;
+}
+
+#resultat {
+  display: flex;
+}
+
+form {
+  text-align: center;
+}
+
+#total {
+  font-size: 1.5rem;
+  text-align: end;
+}
+
+label {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=style.css.map */
