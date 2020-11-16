@@ -27,9 +27,9 @@ function displayProduct(url) {
                         <p class="card-text">Prix: ${element.price / 100} euros</p>
                         <button class="btn btn-secondary mb-4" role="button" 
                         onClick="addToCart('${element.name}', '${element.price}', '${element._id}', '${element.imageUrl}'); afficherResultat()">Ajouter au panier</button>
-                        
                     </div>
                 </div>
+                <hr>
             `
                 product.className = "col-12 col-lg-4"
                 productDiv.appendChild(product)
@@ -83,15 +83,16 @@ const displayCart = () => {
         let produit = document.createElement('div')
         //On crée la classe div comme on la souhaite
         produit.innerHTML = `
-    <div class="card border-primary shadow">
-        <img class=”card-img-top” src="${element.imageUrl}" alt="Présentation" width="100%">
-        <div class="card-body">
-            <h5 class="card-title">${element.name}</h5>
-            <p class="card-text">Prix: ${element.price / 100} euros</p>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-4">
+             <img src="${element.imageUrl}">  </div>
+                <div class="col-8">
+                <h2>${element.name}</h2> <br> <h3>${element.price / 100}</h3>
+                </div>
+                </div>
+                <hr>
 `
-        produit.className = "col-12 col-lg-4"
+        produit.className = "col-12"
         panier.appendChild(produit)
     })
 }
@@ -101,7 +102,7 @@ const TotalPanier = () => {
     const cart = JSON.parse(localStorage.getItem("cart"))
     let prices = document.createElement('div')
     //On crée la classe div comme on la souhaite
-    prices.innerHTML = ` <p class="card-text"> <strong>Prix total: </strong> ${cart.total / 100}`
-    prices.className = "col-12 col-lg-4"
+    prices.innerHTML = ` <p class="card-text"> <strong>Prix total: </strong> ${cart.total / 100}€`
+    prices.className = "col-12"
     totalPrice.appendChild(prices)
 }

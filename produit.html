@@ -22,7 +22,7 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg bg-dark navbar-dark">
                     <a class="navbar-brand" href="index.html">
-                        <img src="images/oak_1.jpg" width="40" height="30" alt="Site logo">
+                        <img src="images/oak_1.jpg" alt="Site logo">
                         Orinoco
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
@@ -49,7 +49,7 @@
     <div id="product" class="row  mt-4 px-4">
     </div>
 
-    
+
     <div class="bg-light">
         <div class="container">
             <div class="row">
@@ -78,13 +78,30 @@
     </script>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function(){})
-    displayProduct('http://localhost:3000/api/teddies')</script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const product = urlParams.get('product');
+        document.addEventListener("DOMContentLoaded", function () {
+            switch (product) {
+                case "teddies":
+                    displayProduct('http://localhost:3000/api/teddies')
+                    break;
+                case "furniture":
+                    displayProduct('http://localhost:3000/api/furniture')
+                    break;
+                case "cameras":
+                    displayProduct('http://localhost:3000/api/cameras')
+                    break;
+                default:
+                    alert("aucun produit trouvé")
+                    break;
+            }
+        })
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-        
+
         
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

@@ -1,10 +1,11 @@
-.card {
+#anim .card {
+  min-height: 30px;
   text-align: center;
 }
-.card:hover {
+#anim .card:hover {
   transform: scale(1.1);
 }
-.card-text {
+#anim .card-text {
   min-height: 6em;
 }
 
@@ -15,6 +16,9 @@
 #resultat {
   display: flex;
 }
+#resultat hr {
+  border-bottom: 2px dashed black;
+}
 
 form {
   text-align: center;
@@ -22,11 +26,39 @@ form {
 
 #total {
   font-size: 1.5rem;
-  text-align: end;
+  text-align: center;
 }
 
 label {
   font-weight: bold;
+}
+
+img {
+  width: 100%;
+}
+
+.confirm {
+  text-align: end;
+  padding-right: 10%;
+}
+
+.navbar-brand img {
+  width: 40px;
+  height: 30px;
+}
+
+form {
+  padding-top: 5%;
+  width: 80%;
+  margin: auto;
+}
+form .form-control {
+  border: 1px solid black;
+  border-radius: 1%;
+}
+
+id {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

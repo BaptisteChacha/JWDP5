@@ -22,7 +22,7 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg bg-dark navbar-dark">
                     <a class="navbar-brand" href="index.html">
-                        <img src="images/oak_1.jpg" width="40" height="30" alt="Site logo">
+                        <img src="images/oak_1.jpg" alt="Site logo">
                         Orinoco
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
@@ -46,38 +46,44 @@
         <h1>Vous avez fais votre choix, ces articles vous conviennent-ils?</h1>
     </div>
 
-    <div id="resultat"></div>
+    <div class="confirm">
+        <a class="btn btn-secondary mb-4" role="button" href="confirmation.html">Confirmer la commande</a>
+    </div>
+
+
+    <div class="container">
+        <div id="resultat" class="row">
+        </div>
+    </div>
 
     <div id="total"></div>
 
-    <form method="post">
-        <div>
-            <label for="firstname">Prénom :</label>
-            <input type="text" id="firstname" name="user_firstname" required>
+    <div id="nom"></div>
+
+    <form onsubmit="event.preventDefault(); MonSubmitForm();" id="products" action="confirmation.html" method="post">
+        <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" class="form-control" name="firstName" placeholder="Entrez votre prénom" required>
         </div>
-        <div>
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="user_name" required>
+        <div class="form-group">
+            <label>Nom</label>
+            <input type="text" class="form-control" name="lastName" placeholder="Entrez votre nom" required>
         </div>
-        <div>
-            <label for="adress">Adresse :</label>
-            <input type="text" id="ardess" name="user_adress" required>
+        <div class="form-group">
+            <label>Adresse</label>
+            <input type="text" class="form-control" name="address" placeholder="Entrez votre adresse" required>
         </div>
-        <div>
-            <label for="city">Ville :</label>
-            <input type="text" id="city" name="user_city" required>
+        <div class="form-group">
+            <label>Ville</label>
+            <input type="text" class="form-control" name="city" placeholder="Entrez votre ville" required>
         </div>
-        <div>
-            <label for="mail">e-mail :</label>
-            <input type="email" id="mail" name="user_mail" required>
+        <div class="form-group">
+            <label>Mail</label>
+            <input type="email" class="form-control" name="email" placeholder="Entrez votre adresse mail" required>
         </div>
-        <div class="button">
-            <button type="submit">Envoyer le formulaire</button>
-        </div>
+        <button type="submit" class="btn btn-secondary mb-4" role="button" href="confirmation.html">Confirmer la
+            commande</button>
     </form>
-
-
-    <a class="btn btn-secondary mb-4" role="button" href="confirmation.html">Confirmer la commande</a>
 
 
     <div class="bg-light">
@@ -102,13 +108,80 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
      
-    <script src="helper.js"></script>
+    <script src="helper.js">
+    </script>
+
+    <script>
+        function addUser(contact) {
+            //On crée une variable avec les résultat du panier
+            const Users = localStorage.getItem("User")
+            //Condition si panier vide, le créer
+            if (Users == null) {
+                localStorage.setItem("User", JSON.stringify({
+                    Users: [],
+                }))
+                //On enregistre le panier
+                Users = localStorage.getItem("User")
+            }
+
+            var datas = JSON.parse(Users)
+            datas.Users.push({
+                prenom: contact.firstName,
+
+            }
+            )
+            console.log(contact, products)
+            console.log(datas)
+        }
+        function MonSubmitForm() {
+            let myForm = document.getElementById('products');
+            let formData = new FormData(myForm);
+            let cart = JSON.parse(localStorage.getItem("cart"))
+            let itemsID = cart.items.map((item) => {
+                return item.id
+
+            })
+            const submitValue = {
+                contact: {
+                    firstName: formData.get("firstName"),
+                    lastName: formData.get("lastName"),
+                    address: formData.get("address"),
+                    city: formData.get("city"),
+                    email: formData.get("email"),
+                },
+                products: [...itemsID]
+            }
+            test("http://localhost:3000/api/cameras/order", submitValue)
+            //addUser(submitValue.contact)
+
+        }
+
+
+        function test(url, submitValue) {
+            XHR = new XMLHttpRequest()
+            //On ouvre une nouvelle connexion
+            XHR.open('POST', url, true)
+            //Envoie les informations du header adaptées avec la requête
+            XHR.setRequestHeader("Content-Type", "application/json");
+
+            XHR.onreadystatechange = function () {
+                if (XHR.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                    console.log("connexion reussi")
+
+                }
+            }
+
+            XHR.send(JSON.stringify(submitValue))
+        }
+
+    </script>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             displayCart()
             TotalPanier()
+            test("http://localhost:3000/api/teddies/order")
         })
     </script>
 
@@ -130,3 +203,7 @@
 </body>
 
 </html>
+
+<script>
+
+</script>
