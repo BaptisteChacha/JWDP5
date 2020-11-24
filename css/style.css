@@ -57,8 +57,12 @@ form .form-control {
   border-radius: 1%;
 }
 
-id {
-  display: none;
+#Info {
+  text-align: center;
+  margin-left: 35%;
+  height: 100%;
+  width: 100%;
+  padding-top: 2%;
 }
 
 /*# sourceMappingURL=style.css.map */

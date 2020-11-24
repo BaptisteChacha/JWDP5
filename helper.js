@@ -1,12 +1,15 @@
-function afficherResultat() {
+/*function afficherResultat() {
     console.log(localStorage.getItem("cart"))
-}
+}*/
 
 
 function displayProduct(url) {
     httpRequest = new XMLHttpRequest()
 
     httpRequest.onreadystatechange = function () {
+      //Récuperer la variable produit depuis URL en type GET
+        const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('product');
         if (httpRequest.readyState == 4) {
             //On parse la reponse JSON pour pouvoir la lire
             const results = JSON.parse(httpRequest.responseText)
@@ -25,14 +28,17 @@ function displayProduct(url) {
                     <div class="card-body">
                         <h5 class="card-title">${element.name}</h5>
                         <p class="card-text">Prix: ${element.price / 100} euros</p>
-                        <button class="btn btn-secondary mb-4" role="button" 
-                        onClick="addToCart('${element.name}', '${element.price}', '${element._id}', '${element.imageUrl}'); afficherResultat()">Ajouter au panier</button>
+                        <a class="btn btn-secondary mb-4" role="button" 
+                        href="infos.html?type=${type}&id=${element._id}"> Voir les détails </a>
                     </div>
                 </div>
                 <hr>
             `
+            
                 product.className = "col-12 col-lg-4"
                 productDiv.appendChild(product)
+                console.log(element)
+                console.log(url)
             });
 
         }
@@ -72,6 +78,7 @@ function addToCart(name, price, id, imageUrl) {
 
     ))
 }
+
 const displayCart = () => {
     let localS = JSON.parse(localStorage.getItem("cart"))
     const panier = document.getElementById('resultat')
@@ -87,15 +94,48 @@ const displayCart = () => {
             <div class="col-4">
              <img src="${element.imageUrl}">  </div>
                 <div class="col-8">
-                <h2>${element.name}</h2> <br> <h3>${element.price / 100}</h3>
+                <h2>${element.name}</h2> <br> <h3>${element.price / 100}€</h3>
                 </div>
                 </div>
                 <hr>
 `
+        //Recuperation de l'ID
         produit.className = "col-12"
         panier.appendChild(produit)
     })
 }
+
+//Test
+function Info(url) {
+    Request = new XMLHttpRequest()
+
+    Request.onreadystatechange = function () {
+        if (Request.readyState == 4) {
+            //On parse la reponse JSON pour pouvoir la lire
+            const infoResults = JSON.parse(Request.responseText)
+            //On recupère l'élément ayant pour ID "product"
+            const infoDiv = document.getElementById('resume')
+            //On crée une nouvelle div
+            let info = document.createElement('div')
+            //On crée la classe div comme on la souhaite
+            info.innerHTML = `
+                <div class="card border-primary shadow">
+                    Bonjour monsieur ${infoResults.firstname}
+                    </div>
+                </div>
+                <hr>
+            `
+            info.className = "col-12 col-lg-4"
+            infoDiv.appendChild(info)
+        }
+
+    }
+
+    //On ouvre une nouvelle connexion
+    Request.open('GET', url, true)
+    Request.send()
+}
+//Fin de test
 
 const TotalPanier = () => {
     const totalPrice = document.getElementById('total')
