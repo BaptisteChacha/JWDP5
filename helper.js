@@ -51,7 +51,7 @@ function displayProduct(url) {
 
 function addToCart(name, price, id, imageUrl) {
     //On crée une variable avec les résultat du panier
-    const localS = localStorage.getItem("cart")
+    let localS = localStorage.getItem("cart")
     price = parseFloat(price)
     //Condition si panier vide, le créer
     if (localS == null) {
@@ -146,3 +146,6 @@ const TotalPanier = () => {
     prices.className = "col-12"
     totalPrice.appendChild(prices)
 }
+function RedirectionJavascript(){
+    document.location.href="confirmation.html"; 
+  }

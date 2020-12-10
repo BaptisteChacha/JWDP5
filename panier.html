@@ -60,7 +60,7 @@
 
     <div id="nom"></div>
 
-    <form onsubmit="/*event.preventDefault();*/ MonSubmitForm();" id="products" action="confirmation.html" method="post">
+    <form onsubmit="event.preventDefault(); MonSubmitForm();" id="products" action="confirmation.html" method="post">
         <div class="form-group">
             <label>Prénom</label>
             <input type="text" class="form-control" name="firstName" placeholder="Entrez votre prénom" required>
@@ -112,9 +112,10 @@
     </script>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type');
-        const id = urlParams.get('id');
+        const urlParam = new URLSearchParams(window.location.search);
+        const type = urlParam.get('type');
+        const id = urlParam.get('id');
+        console.log(type)
 
         function addUser(contact) {
             //On crée une variable avec les résultat du panier
@@ -157,7 +158,7 @@
             }
             test("http://localhost:3000/api/"+type+"/order", submitValue)
             addUser(submitValue.contact)
-
+            //Promesse
         }
 
 

@@ -55,11 +55,10 @@
     
 
     <script>
-      
          const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type');
+        const types = urlParams.get('type');
         document.addEventListener("DOMContentLoaded", function () {
-            Info('http://localhost:3000/api/'+type+'order')
+            Info('http://localhost:3000/api/'+types+'/order')
         })
 
     </script>
