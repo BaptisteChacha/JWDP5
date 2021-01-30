@@ -1,15 +1,10 @@
-/*function afficherResultat() {
-    console.log(localStorage.getItem("cart"))
-}*/
-
-
 function displayProduct(url) {
     httpRequest = new XMLHttpRequest()
 
     httpRequest.onreadystatechange = function () {
-      //Récuperer la variable produit depuis URL en type GET
+        //Récuperer la variable produit depuis URL en type GET
         const urlParams = new URLSearchParams(window.location.search);
-            const type = urlParams.get('product');
+        const type = urlParams.get('product');
         if (httpRequest.readyState == 4) {
             //On parse la reponse JSON pour pouvoir la lire
             const results = JSON.parse(httpRequest.responseText)
@@ -34,7 +29,7 @@ function displayProduct(url) {
                 </div>
                 <hr>
             `
-            
+
                 product.className = "col-12 col-lg-4"
                 productDiv.appendChild(product)
                 console.log(element)
@@ -49,14 +44,14 @@ function displayProduct(url) {
 }
 
 
-function addToCart(name, price, id, imageUrl) {
+function addToCart(name, price, id, imageUrl, color) {
     //On crée une variable avec les résultat du panier
     let localS = localStorage.getItem("cart")
     price = parseFloat(price)
     //Condition si panier vide, le créer
     if (localS == null) {
         localStorage.setItem("cart", JSON.stringify({
-            items: [],
+            items: {},
             total: 0
         }))
         //On enregistre le panier
@@ -64,14 +59,18 @@ function addToCart(name, price, id, imageUrl) {
     }
 
     var data = JSON.parse(localS)
-    data.items.push({
-        name: name,
-        price: price,
-        id: id,
-        imageUrl: imageUrl,
-
+    if (data.items[name + "__" + color] != undefined) {
+        data.items[name + "__" + color].quantity++;
+    } else {
+        data.items[name + "__" + color] = {
+            name: name,
+            price: price,
+            id: id,
+            imageUrl: imageUrl,
+            color: color,
+            quantity: 1,
+        }
     }
-    )
     data.total = data.total + price
     localStorage.setItem("cart", JSON.stringify(
         data
@@ -83,8 +82,9 @@ const displayCart = () => {
     let localS = JSON.parse(localStorage.getItem("cart"))
     const panier = document.getElementById('resultat')
     //affichage du panier sur la page panier
-    localS.items.forEach(element => {
+    for (let i in localS.items) {
         //On affiche ces éléments dans la console
+        let element = localS.items[i]
         console.log(element)
         //On crée une nouvelle div
         let produit = document.createElement('div')
@@ -94,7 +94,7 @@ const displayCart = () => {
             <div class="col-4">
              <img src="${element.imageUrl}">  </div>
                 <div class="col-8">
-                <h2>${element.name}</h2> <br> <h3>${element.price / 100}€</h3>
+                <h2>${element.name}</h2> <br> <h3>${element.price / 100}€</h3> <br> <h4>${element.color}
                 </div>
                 </div>
                 <hr>
@@ -102,7 +102,7 @@ const displayCart = () => {
         //Recuperation de l'ID
         produit.className = "col-12"
         panier.appendChild(produit)
-    })
+    }
 }
 
 //Test
@@ -146,6 +146,6 @@ const TotalPanier = () => {
     prices.className = "col-12"
     totalPrice.appendChild(prices)
 }
-function RedirectionJavascript(){
-    document.location.href="confirmation.html"; 
-  }
+function RedirectionJavascript() {
+    document.location.href = "confirmation.html";
+}

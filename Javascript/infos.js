@@ -39,9 +39,9 @@ function info() {
                 <h5 class="card-title">${resultats.name}</h5>
                 <p class="card-text">Prix: ${resultats.price / 100} euros</p>
                 <p class="card-text">Description: <br> ${resultats.description}</p>
-                <p class="card-text">color:</p>
+                <p class="card-text" id="option"></p>
                 
-                <SELECT NAME="color">
+                <SELECT id="couleur" NAME="color">
                     ${options}
                 </SELECT> <br>
                
@@ -55,15 +55,22 @@ function info() {
             informations.className = "col-12 col-lg-4";
             affichage.appendChild(informations);
             var bouton = document.getElementById("bouton");
-            console.log(bouton);
-            bouton.addEventListener('click', function(){
-                addToCart(resultats.name, resultats.price, resultats.id, resultats.imageUrl);
+            bouton.addEventListener('click', function () {
+                let choice = document.getElementById('couleur').value;
+                addToCart(resultats.name, resultats.price, resultats.id, resultats.imageUrl, choice);
+           
             });
-
         }
     }
     XHR.send();
 }
 
-
 info()
+
+if(type == "cameras") {
+    document.getElementById("option").innerHTML = `lentilles`
+} else if (type == "furniture") {
+    document.getElementById("option").innerHTML = `vernis`
+} else {
+    document.getElementById("option").innerHTML = `couleur`
+}

@@ -29,7 +29,6 @@
             let cart = JSON.parse(localStorage.getItem("cart"))
             let itemsID = cart.items.map((item) => {
                 return item.id
-                //console.log(item.id)
 
             })
             const submitValue = {
@@ -44,7 +43,6 @@
             }
             test("http://localhost:3000/api/"+type+"/order", submitValue)
             addUser(submitValue.contact)
-            //Promesse
         }
 
 
@@ -67,11 +65,8 @@
 
 
 
-
-
         document.addEventListener("DOMContentLoaded", function () {
             displayCart()
             TotalPanier()
-            //test("http://localhost:3000/api/cameras/order")
         })
    
