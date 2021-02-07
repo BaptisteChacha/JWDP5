@@ -42,8 +42,8 @@ function displayProduct(url) {
     httpRequest.open('GET', url, true)
     httpRequest.send()
 }
-
-
+let localS = localStorage.getItem("cart");
+let data = JSON.parse(localS)
 function addToCart(name, price, id, imageUrl, color) {
     //On crée une variable avec les résultat du panier
     let localS = localStorage.getItem("cart")
@@ -57,8 +57,6 @@ function addToCart(name, price, id, imageUrl, color) {
         //On enregistre le panier
         localS = localStorage.getItem("cart")
     }
-
-    var data = JSON.parse(localS)
     if (data.items[name + "__" + color] != undefined) {
         data.items[name + "__" + color].quantity++;
     } else {
@@ -76,15 +74,55 @@ function addToCart(name, price, id, imageUrl, color) {
         data
 
     ))
+
 }
+//Test function removeCart
+function removeToCart(name, price, id, imageUrl, color) {
+    //On crée une variable avec les résultat du panier
+    let localS = localStorage.getItem("cart")
+    price = parseFloat(price)
+    //Condition si panier vide, le créer
+    if (localS == null) {
+        localStorage.setItem("cart", JSON.stringify({
+            items: {},
+            total: 0
+        }))
+        //On enregistre le panier
+        localS = localStorage.getItem("cart")
+    }
+    if (data.items[name + "__" + color] != undefined) {
+        data.items[name + "__" + color].quantity--;
+    } else {
+        data.items[name+"__"+color] = {
+            name: name,
+            price: price,
+            id: id,
+            imageUrl: imageUrl,
+            color: color,
+            quantity: 1,
+        }
+    }
+    data.total = data.total - price
+    localStorage.setItem("cart", JSON.stringify(
+        data
+    ))
+        if(data.items[name + "__" + color].quantity == 0){
+            console.log('yo');
+            localStorage.removeItem(data.items[name + "__" + color]);
+           
+        }
+}
+
 
 const displayCart = () => {
     let localS = JSON.parse(localStorage.getItem("cart"))
     const panier = document.getElementById('resultat')
+    panier.innerHTML = '';
     //affichage du panier sur la page panier
     for (let i in localS.items) {
         //On affiche ces éléments dans la console
-        let element = localS.items[i]
+        let element = localS.items[i];
+        let id = element.name.replace(" ", "") + "__" + element.color.replace(" ", "");
         console.log(element)
         //On crée une nouvelle div
         let produit = document.createElement('div')
@@ -93,17 +131,52 @@ const displayCart = () => {
         <div class="row">
             <div class="col-4">
              <img src="${element.imageUrl}">  </div>
-                <div class="col-8">
-                <h2>${element.name}</h2> <br> <h3>${element.price / 100}€</h3> <br> <h4>${element.color}
+                <div class="col-4">
+                <h2>${element.name}</h2> <br> <h3>${element.price / 100}€</h3> <br> <h4>${element.color} <br>
+                <h4 class="quantité"> quantité:  ${element.quantity}
                 </div>
+
+                <div class="col-2">
+                <button  id="btn_add${id}">
+                <img src="images/img_+.jpg">
+                </button>
                 </div>
+
+                <div class="col-2">
+                <button id="btn_less${id}">
+                <img src="images/img_-.jpg">
+                </button>
+                </div>
+
+                </div>  
                 <hr>
 `
+
+        //Test avec variable
+        /*let quantite = element.quantity;
+        console.log(quantite)
+        let couleur = element.color;
+        console.log(couleur);*/
+
         //Recuperation de l'ID
         produit.className = "col-12"
         panier.appendChild(produit)
+        //test ajout quantité
+        var add = document.getElementById("btn_add" + id);
+        var less = document.getElementById("btn_less" + id);
+        add.addEventListener("click", function () {
+            addToCart(element.name, element.price, element.id, element.imageUrl, element.color)
+            displayCart();
+            TotalPanier();
+        })
+        less.addEventListener("click", function () {
+            removeToCart(element.name, element.price, element.id, element.imageUrl, element.color)
+            displayCart();
+            TotalPanier();
+        })
     }
 }
+
 
 //Test
 function Info(url) {
@@ -140,12 +213,10 @@ function Info(url) {
 const TotalPanier = () => {
     const totalPrice = document.getElementById('total')
     const cart = JSON.parse(localStorage.getItem("cart"))
+    totalPrice.innerHTML = '';
     let prices = document.createElement('div')
     //On crée la classe div comme on la souhaite
     prices.innerHTML = ` <p class="card-text"> <strong>Prix total: </strong> ${cart.total / 100}€`
     prices.className = "col-12"
     totalPrice.appendChild(prices)
-}
-function RedirectionJavascript() {
-    document.location.href = "confirmation.html";
 }

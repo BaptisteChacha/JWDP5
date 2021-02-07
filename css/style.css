@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #anim .card {
   min-height: 30px;
   text-align: center;
@@ -63,6 +64,10 @@ form .form-control {
   height: 100%;
   width: 100%;
   padding-top: 2%;
+}
+
+.quantité {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -58,7 +58,7 @@ function info() {
             bouton.addEventListener('click', function () {
                 let choice = document.getElementById('couleur').value;
                 addToCart(resultats.name, resultats.price, resultats.id, resultats.imageUrl, choice);
-           
+
             });
         }
     }
@@ -66,11 +66,3 @@ function info() {
 }
 
 info()
-
-if(type == "cameras") {
-    document.getElementById("option").innerHTML = `lentilles`
-} else if (type == "furniture") {
-    document.getElementById("option").innerHTML = `vernis`
-} else {
-    document.getElementById("option").innerHTML = `couleur`
-}
