@@ -79,38 +79,22 @@ function addToCart(name, price, id, imageUrl, color) {
 //Test function removeCart
 function removeToCart(name, price, id, imageUrl, color) {
     //On crée une variable avec les résultat du panier
-    let localS = localStorage.getItem("cart")
+    let localS = localStorage.getItem("cart");
     price = parseFloat(price)
-    //Condition si panier vide, le créer
-    if (localS == null) {
-        localStorage.setItem("cart", JSON.stringify({
-            items: {},
-            total: 0
-        }))
-        //On enregistre le panier
-        localS = localStorage.getItem("cart")
-    }
-    if (data.items[name + "__" + color] != undefined) {
-        data.items[name + "__" + color].quantity--;
-    } else {
-        data.items[name+"__"+color] = {
-            name: name,
-            price: price,
-            id: id,
-            imageUrl: imageUrl,
-            color: color,
-            quantity: 1,
-        }
-    }
+    if (data.items[name+"__"+color] != undefined) {
+        data.items[name+"__"+color].quantity--;
+    } 
     data.total = data.total - price
     localStorage.setItem("cart", JSON.stringify(
         data
     ))
-        if(data.items[name + "__" + color].quantity == 0){
-            console.log('yo');
-            localStorage.removeItem(data.items[name + "__" + color]);
-           
-        }
+    if (data.items[name + "__" + color].quantity == 0) {
+        console.log('yo');
+        localStorage.removeItem(name, price, id, imageUrl, color);
+        delete data.items[name + "__" + color].name;
+        localStorage.setItem("cart", JSON.stringify(data))
+        
+    }
 }
 
 
