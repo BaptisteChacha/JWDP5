@@ -16,8 +16,8 @@ function addUser(contact) {
     }
 
     var datas = JSON.parse(Users)
-    datas.Users.push({
-        prenom: contact.firstName,
+    datas.User.push({
+        firstname: contact.firstName,
     }
     )
     console.log(contact/*, products*/)
@@ -27,10 +27,10 @@ function MonSubmitForm() {
     let myForm = document.getElementById('products');
     let formData = new FormData(myForm);
     let cart = JSON.parse(localStorage.getItem("cart"))
-    let itemsID = cart.items.map((item) => {
-        return item.id
+   /* let itemsID = cart.items.map((item) => {
+        return item.id*/
 
-    })
+    //})
     const submitValue = {
         contact: {
             firstName: formData.get("firstName"),
@@ -39,15 +39,15 @@ function MonSubmitForm() {
             city: formData.get("city"),
             email: formData.get("email"),
         },
-        // products: [...itemsID]
+         products: [...itemsID]
     }
-    test("http://localhost:3000/api/" + type + "/order", submitValue)
+    contactForm("http://localhost:3000/api/" + type + "/order", submitValue)
     addUser(submitValue.contact)
 }
 
 
 
-function test(url, submitValue) {
+function contactForm(url, submitValue) {
     XHR = new XMLHttpRequest()
     //On ouvre une nouvelle connexion
     XHR.open('POST', url, true)
@@ -70,5 +70,5 @@ send.addEventListener('click', function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     displayCart()
-    TotalPanier()
+    totalCart()
 })

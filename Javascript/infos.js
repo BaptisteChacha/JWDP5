@@ -11,25 +11,25 @@ function info() {
 
     XHR.onreadystatechange = function () {
         if (XHR.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            let choix = []
+            let choice = []
             //On parse la reponse JSON pour pouvoir la lire
             const resultats = JSON.parse(XHR.responseText)
             //On cree une condition; si le type est teddies, on cree un tableau avec le choix des couleurs
             if (type == "teddies") {
-                choix = resultats.colors
+                choice = resultats.colors
             } else if (type == "cameras") {
-                choix = resultats.lenses
+                choice = resultats.lenses
             } else if (type == "furniture") {
-                choix = resultats.varnish
+                choice = resultats.varnish
             }
 
             //On recupère l'élément ayant pour ID "Info"
-            const affichage = document.getElementById('Info')
+            const display = document.getElementById('Info')
             //On crée une nouvelle div
             let informations = document.createElement('div')
             //On crée la classe div comme on la souhaite
 
-            let options = choix.map(option => {
+            let options = choice.map(option => {
                 return `<option value="${option}">${option}</option>`
             })
             informations.innerHTML = `
@@ -53,7 +53,7 @@ function info() {
     `
             //On crée la classe div comme on la souhaite
             informations.className = "col-12 col-lg-4";
-            affichage.appendChild(informations);
+            display.appendChild(informations);
             var bouton = document.getElementById("bouton");
             bouton.addEventListener('click', function () {
                 let choice = document.getElementById('couleur').value;

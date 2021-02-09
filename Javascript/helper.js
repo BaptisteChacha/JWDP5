@@ -81,27 +81,28 @@ function removeToCart(name, price, id, imageUrl, color) {
     //On crée une variable avec les résultat du panier
     let localS = localStorage.getItem("cart");
     price = parseFloat(price)
-    if (data.items[name+"__"+color] != undefined) {
-        data.items[name+"__"+color].quantity--;
-    } 
+    if (data.items[name + "__" + color] != undefined) {
+        data.items[name + "__" + color].quantity--;
+    }
     data.total = data.total - price
     localStorage.setItem("cart", JSON.stringify(
         data
     ))
     if (data.items[name + "__" + color].quantity == 0) {
-        console.log('yo');
-        localStorage.removeItem(name, price, id, imageUrl, color);
         delete data.items[name + "__" + color].name;
+        delete data.items[name + "__" + color].color;
+        delete data.items[name + "__" + color].imageUrl;
+        delete data.items[name + "__" + color].price;
+        delete data.items[name + "__" + color].quantity;
         localStorage.setItem("cart", JSON.stringify(data))
-        
     }
 }
 
 
 const displayCart = () => {
     let localS = JSON.parse(localStorage.getItem("cart"))
-    const panier = document.getElementById('resultat')
-    panier.innerHTML = '';
+    const cart = document.getElementById('resultat')
+    cart.innerHTML = '';
     //affichage du panier sur la page panier
     for (let i in localS.items) {
         //On affiche ces éléments dans la console
@@ -136,27 +137,21 @@ const displayCart = () => {
                 <hr>
 `
 
-        //Test avec variable
-        /*let quantite = element.quantity;
-        console.log(quantite)
-        let couleur = element.color;
-        console.log(couleur);*/
-
         //Recuperation de l'ID
         produit.className = "col-12"
-        panier.appendChild(produit)
+        cart.appendChild(produit)
         //test ajout quantité
         var add = document.getElementById("btn_add" + id);
         var less = document.getElementById("btn_less" + id);
         add.addEventListener("click", function () {
             addToCart(element.name, element.price, element.id, element.imageUrl, element.color)
             displayCart();
-            TotalPanier();
+            totalCart();
         })
         less.addEventListener("click", function () {
             removeToCart(element.name, element.price, element.id, element.imageUrl, element.color)
             displayCart();
-            TotalPanier();
+            totalCart();
         })
     }
 }
@@ -194,7 +189,7 @@ function Info(url) {
 }
 //Fin de test
 
-const TotalPanier = () => {
+const totalCart = () => {
     const totalPrice = document.getElementById('total')
     const cart = JSON.parse(localStorage.getItem("cart"))
     totalPrice.innerHTML = '';
