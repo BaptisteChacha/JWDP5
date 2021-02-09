@@ -15,11 +15,17 @@ function addUser(contact) {
         Users = localStorage.getItem("User")
     }
 
-    var datas = JSON.parse(Users)
-    datas.User.push({
+    let datas = JSON.parse(Users)
+    datas.User = {
         firstname: contact.firstName,
+        lastName: contact.lastName,
+        address: contact.address,
+        city: contact.city,
+        email: contact.email
     }
-    )
+    localStorage.setItem("User", JSON.stringify(
+        datas))
+
     console.log(contact/*, products*/)
     //console.log(datas)
 }
@@ -27,8 +33,8 @@ function MonSubmitForm() {
     let myForm = document.getElementById('products');
     let formData = new FormData(myForm);
     let cart = JSON.parse(localStorage.getItem("cart"))
-   /* let itemsID = cart.items.map((item) => {
-        return item.id*/
+    /* let itemsID = cart.items.map((item) => {
+         return item.id*/
 
     //})
     const submitValue = {
@@ -39,7 +45,7 @@ function MonSubmitForm() {
             city: formData.get("city"),
             email: formData.get("email"),
         },
-         products: [...itemsID]
+        //   products: [...itemsID]
     }
     contactForm("http://localhost:3000/api/" + type + "/order", submitValue)
     addUser(submitValue.contact)
