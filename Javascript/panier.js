@@ -1,15 +1,16 @@
 const urlParam = new URLSearchParams(window.location.search);
 const type = urlParam.get('type');
 const id = urlParam.get('id');
-console.log(type)
+console.log(type);
+//let localS = localStorage.getItem("cart");
 
 function addUser(contact) {
     //On crée une variable avec les résultat du panier
-    const Users = localStorage.getItem("User")
+    let Users = localStorage.getItem("User")
     //Condition si panier vide, le créer
     if (Users == null) {
         localStorage.setItem("User", JSON.stringify({
-            Users: [],
+           // Users: {},
         }))
         //On enregistre le panier
         Users = localStorage.getItem("User")

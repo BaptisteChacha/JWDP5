@@ -46,21 +46,20 @@ let localS = localStorage.getItem("cart");
 let data = JSON.parse(localS)
 function addToCart(name, price, id, imageUrl, color) {
     //On crée une variable avec les résultat du panier
-    let localS = localStorage.getItem("cart")
+    let localS = JSON.parse(localStorage.getItem("cart"))
     price = parseFloat(price)
     //Condition si panier vide, le créer
     if (localS == null) {
-        localStorage.setItem("cart", JSON.stringify({
+        localS = {
             items: {},
             total: 0
-        }))
-        //On enregistre le panier
-        localS = localStorage.getItem("cart")
+        };
     }
-    if (data.items[name + "__" + color] != undefined) {
-        data.items[name + "__" + color].quantity++;
+    console.log(localS.items)
+    if (localS.items[name + "__" + color] != undefined) {
+        localS.items[name + "__" + color].quantity++;
     } else {
-        data.items[name + "__" + color] = {
+        localS.items[name + "__" + color] = {
             name: name,
             price: price,
             id: id,
@@ -69,9 +68,9 @@ function addToCart(name, price, id, imageUrl, color) {
             quantity: 1,
         }
     }
-    data.total = data.total + price
+    localS.total = localS.total + price
     localStorage.setItem("cart", JSON.stringify(
-        data
+        localS
 
     ))
 
@@ -79,23 +78,16 @@ function addToCart(name, price, id, imageUrl, color) {
 //Test function removeCart
 function removeToCart(name, price, id, imageUrl, color) {
     //On crée une variable avec les résultat du panier
-    let localS = localStorage.getItem("cart");
+    let localS = JSON.parse(localStorage.getItem("cart"));
     price = parseFloat(price)
-    if (data.items[name + "__" + color] != undefined) {
-        data.items[name + "__" + color].quantity--;
+    if (localS.items[name + "__" + color] != undefined) {
+        localS.items[name + "__" + color].quantity--;
     }
-    data.total = data.total - price
-    localStorage.setItem("cart", JSON.stringify(
-        data
-    ))
-    if (data.items[name + "__" + color].quantity == 0) {
-        delete data.items[name + "__" + color].name;
-        delete data.items[name + "__" + color].color;
-        delete data.items[name + "__" + color].imageUrl;
-        delete data.items[name + "__" + color].price;
-        delete data.items[name + "__" + color].quantity;
-        localStorage.setItem("cart", JSON.stringify(data))
+    localS.total = localS.total - price;
+    if (localS.items[name + "__" + color].quantity == 0) {
+        delete localS.items[name + "__" + color]
     }
+    localStorage.setItem("cart", JSON.stringify(localS))
 }
 
 
