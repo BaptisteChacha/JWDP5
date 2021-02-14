@@ -66,6 +66,7 @@ function addToCart(name, price, id, imageUrl, color) {
             imageUrl: imageUrl,
             color: color,
             quantity: 1,
+            type: type,
         }
     }
     localS.total = localS.total + price
