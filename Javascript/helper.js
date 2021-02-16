@@ -72,7 +72,6 @@ function addToCart(name, price, id, imageUrl, color) {
     localS.total = localS.total + price
     localStorage.setItem("cart", JSON.stringify(
         localS
-
     ))
 
 }

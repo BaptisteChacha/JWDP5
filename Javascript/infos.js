@@ -1,13 +1,14 @@
 const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get('type');
-const id = urlParams.get('id');
+let id = urlParams.get('id');
 console.log(type, id)
 
 
 function info() {
+
     XHR = new XMLHttpRequest()
     //On ouvre une nouvelle connexion
-    XHR.open('GET', 'http://localhost:3000/api/' + type + '/' + id, true)
+    XHR.open('GET', 'http://localhost:3000/api/' + type + '/' + id , true)
 
     XHR.onreadystatechange = function () {
         if (XHR.readyState == XMLHttpRequest.DONE && this.status == 200) {
@@ -39,7 +40,7 @@ function info() {
                 <h5 class="card-title">${resultats.name}</h5>
                 <p class="card-text">Prix: ${resultats.price / 100} euros</p>
                 <p class="card-text">Description: <br> ${resultats.description}</p>
-                <p class="card-text" id="option"></p>
+                <p class="card-text" id="option">Personnalisation:</p>
                 
                 <SELECT id="couleur" NAME="color">
                     ${options}
@@ -58,11 +59,13 @@ function info() {
             bouton.addEventListener('click', function () {
                 let choice = document.getElementById('couleur').value;
                 addToCart(resultats.name, resultats.price, resultats.id, resultats.imageUrl, choice);
+                localStorage.setItem("Ids", id)
 
             });
         }
     }
     XHR.send();
 }
+
 
 info()

@@ -1,9 +1,3 @@
-const urlParam = new URLSearchParams(window.location.search);
-const type = urlParam.get('type');
-const id = urlParam.get('id');
-console.log(type);
-//let localS = localStorage.getItem("cart");
-
 function addUser(contact) {
     //On crée une variable avec les résultat du panier
     let Users = localStorage.getItem("User")
@@ -29,6 +23,7 @@ function addUser(contact) {
 
     console.log(contact/*, products*/)
     //console.log(datas)
+   // console.log(localStorage.getItem("cart"))
 }
 function MonSubmitForm() {
     let myForm = document.getElementById('products');
@@ -46,12 +41,11 @@ function MonSubmitForm() {
             city: formData.get("city"),
             email: formData.get("email"),
         },
-        //   products: [...itemsID]
+           //products: [...itemsID]
     }
     contactForm("http://localhost:3000/api/" + type + "/order", submitValue)
     addUser(submitValue.contact)
 }
-
 
 
 function contactForm(url, submitValue) {
