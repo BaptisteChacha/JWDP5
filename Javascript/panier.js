@@ -66,10 +66,8 @@ form.addEventListener("submit", function (e) {
 
 let types = localStorage.getItem('cart')
 let test = JSON.parse(localS)
-console.log(test.items.type)
+//console.log(test.items.type)
 /*
-let obj = localStorage.getItem('user');
-console.log(obj.address)
 if (obj.items.type == 'teddies'){
     var arrayTeddies = []
     console.log(arrayTeddies)
@@ -80,3 +78,10 @@ if (obj.items.type == 'teddies'){
      var arrayCameras = []
      console.log(arrayCameras)
  }*/
+
+ for(var i in types){
+if(types.items[i].type == 'furniture'){
+    var arrayFurniture = []
+     console.log(arrayFurniture)
+}
+ }
