@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const type = urlParams.get('type');
+let type = urlParams.get('type');
 let id = urlParams.get('id');
 console.log(type, id)
 
@@ -15,6 +15,7 @@ function info() {
             let choice = []
             //On parse la reponse JSON pour pouvoir la lire
             const resultats = JSON.parse(XHR.responseText)
+            console.log(resultats)
             //On cree une condition; si le type est teddies, on cree un tableau avec le choix des couleurs
             if (type == "teddies") {
                 choice = resultats.colors
@@ -58,14 +59,46 @@ function info() {
             var bouton = document.getElementById("bouton");
             bouton.addEventListener('click', function () {
                 let choice = document.getElementById('couleur').value;
-                addToCart(resultats.name, resultats.price, resultats.id, resultats.imageUrl, choice);
-                localStorage.setItem("Ids", id)
+                addToCart(resultats.name, resultats.price, resultats._id, resultats.imageUrl, choice);
 
             });
         }
     }
     XHR.send();
 }
+/*let obj = localStorage.getItem('user');
+console.log(obj.address)*/
+/*var array = document.getElementById('bouton')
+array.addEventListener("click", function() {*/
+
+    for(let a=0; a<5; a++){
+        var array = [a]
+        console.log(array)
+    }
+    if (type == 'teddies'){
+        var arrayTeddies = []
+        console.log(arrayTeddies)
+        arrayTeddies.push(id)
+        localStorage.setItem("Ids", JSON.stringify(
+            arrayTeddies
+        ))
+     } else if (type == 'furniture'){
+         var arrayFurniture = []
+         console.log(arrayFurniture)
+         arrayFurniture.push(id)
+         localStorage.setItem("Ids", JSON.stringify(
+            arrayFurniture
+        ))
+     } else if (type == 'cameras') {
+         var arrayCameras = []
+         console.log(arrayCameras)
+         arrayCameras.push(id)
+         localStorage.setItem("Ids", JSON.stringify(
+            arrayCameras
+        ))
+     }
+
+//});
 
 
 info()

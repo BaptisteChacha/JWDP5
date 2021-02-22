@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
 })*/
 
 
-function resumed() {
-let utilisateurs = JSON.parse(localStorage.getItem("User"));
+function confirm() {
+let utilisateurs = JSON.parse(localStorage.getItem("user"));
 let price_total = JSON.parse(localStorage.getItem("cart"));
 let resume = document.getElementById('resume');
-console.log(utilisateurs.User.firstname)
-    resume.innerHTML=`Bonjour ${utilisateurs.User.firstname} ${utilisateurs.User.lastName}. <br> 
+console.log(utilisateurs)
+    resume.innerHTML=`Bonjour ${utilisateurs.firstname} ${utilisateurs.lastName}. <br> 
     Nous vous confirmons votre commande pour un montant de ${price_total.total/100} €. <br>
     Votre numero de commande est le  `
 }
-resumed()
+confirm()

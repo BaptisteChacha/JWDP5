@@ -4,7 +4,10 @@ const product = urlParams.get('product');
 document.addEventListener("DOMContentLoaded", function () {
     switch (product) {
         case "teddies":
-            displayProduct('http://localhost:3000/api/teddies')
+            displayProduct(/*fetch(*/'http://localhost:3000/api/teddies')
+          /*  .then(response => response.json())
+            .then(response => alert(JSON.stringify(response)))
+            .catch(error => alert("Erreur : " + error)));*/
             break;
         case "furniture":
             displayProduct('http://localhost:3000/api/furniture')

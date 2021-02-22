@@ -130,6 +130,7 @@ const displayCart = () => {
 `
 
         //Recuperation de l'ID
+    //    console.log(id)
         produit.className = "col-12"
         cart.appendChild(produit)
         //test ajout quantité
@@ -145,6 +146,8 @@ const displayCart = () => {
             displayCart();
             totalCart();
         })
+        let typo = element.type
+        console.log(typo)
     }
 }
 
