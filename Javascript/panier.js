@@ -60,28 +60,37 @@ document.addEventListener("DOMContentLoaded", function () {
     totalCart()
 })
 form.addEventListener("submit", function (e) {
-    e.preventDefault()
+    //e.preventDefault()
     MonSubmitForm()
 })
 
-let types = localStorage.getItem('cart')
-let test = JSON.parse(localS)
-//console.log(test.items.type)
-/*
-if (obj.items.type == 'teddies'){
-    var arrayTeddies = []
-    console.log(arrayTeddies)
- } else if ( localS.items.type == 'furniture'){
-     var arrayFurniture = []
-     console.log(arrayFurniture)
- } else if ( localS.items.type == 'cameras') {
-     var arrayCameras = []
-     console.log(arrayCameras)
- }*/
+let types = JSON.parse(localStorage.getItem('cart'))
 
- for(var i in types){
-if(types.items[i].type == 'furniture'){
-    var arrayFurniture = []
-     console.log(arrayFurniture)
+let arrayTeddies = [];
+let arrayFurniture = [];
+let arrayCameras = [];
+
+for (var i in types.items) {
+    console.log(types.items[i].type)
+    if (types.items[i].type == 'furniture') {
+        arrayFurniture.push(types.items[i].id)
+        localStorage.setItem("Ids", JSON.stringify(
+            arrayFurniture
+        ))
+        console.log(arrayFurniture)
+    }
+    else if (types.items[i].type == 'teddies') {
+        arrayTeddies.push((types.items[i].id))
+        localStorage.setItem("Ids", JSON.stringify(
+            arrayTeddies
+        ))
+        console.log(arrayFurniture)
+    }
+    else if (types.items[i].type == 'cameras') {
+        arrayCameras.push((types.items[i].id))
+        localStorage.setItem("Ids", JSON.stringify(
+            arrayCameras
+        ))
+        console.log(arrayCameras)
+    }
 }
- }
