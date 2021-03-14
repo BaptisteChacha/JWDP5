@@ -16,7 +16,7 @@ function info() {
             //On parse la reponse JSON pour pouvoir la lire
             const resultats = JSON.parse(XHR.responseText)
             console.log(resultats)
-            //On cree une condition; si le type est teddies, on cree un tableau avec le choix des couleurs
+            //On cree une condition; si le type est teddies, on cree un tableau avec le choix des personnalisations
             if (type == "teddies") {
                 choice = resultats.colors
             } else if (type == "cameras") {
@@ -43,7 +43,7 @@ function info() {
                 <p class="card-text">Description: <br> ${resultats.description}</p>
                 <p class="card-text" id="option">Personnalisation:</p>
                 
-                <SELECT id="couleur" NAME="color">
+                <SELECT id="personnalisation" NAME="color">
                     ${options}
                 </SELECT> <br>
                
@@ -58,7 +58,7 @@ function info() {
             display.appendChild(informations);
             var bouton = document.getElementById("bouton");
             bouton.addEventListener('click', function () {
-                let choice = document.getElementById('couleur').value;
+                let choice = document.getElementById('personnalisation').value;
                 addToCart(resultats.name, resultats.price, resultats._id, resultats.imageUrl, choice);
 
             });
@@ -70,33 +70,6 @@ function info() {
 console.log(obj.address)*/
 /*var array = document.getElementById('bouton')
 array.addEventListener("click", function() {*/
-
-    for(let a=0; a<5; a++){
-        var array = [a]
-        console.log(array)
-    }
-    if (type == 'teddies'){
-        var arrayTeddies = []
-        console.log(arrayTeddies)
-        arrayTeddies.push(id)
-        localStorage.setItem("Ids", JSON.stringify(
-            arrayTeddies
-        ))
-     } else if (type == 'furniture'){
-         var arrayFurniture = []
-         console.log(arrayFurniture)
-         arrayFurniture.push(id)
-         localStorage.setItem("Ids", JSON.stringify(
-            arrayFurniture
-        ))
-     } else if (type == 'cameras') {
-         var arrayCameras = []
-         console.log(arrayCameras)
-         arrayCameras.push(id)
-         localStorage.setItem("Ids", JSON.stringify(
-            arrayCameras
-        ))
-     }
 
 //});
 
