@@ -1,3 +1,4 @@
+let OrderId = []
 function addUser(contact) {
     //On crée une variable avec les résultat du panier
     let user = {
@@ -83,7 +84,9 @@ function contactForm(url, submitValue) {
 
     })
         .then(response => response.json())
-        .then(response => localStorage.setItem("orderId", response.orderId))
+        .then(response => OrderId.push(response.orderId))
+        .then(response => console.log(OrderId))
+        .then(response => localStorage.setItem("orderId", OrderId))
         .catch(error => alert("Erreur : " + error));
 
 }
@@ -97,6 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
     totalCart()
 })
 form.addEventListener("submit", function (e) {
-   // e.preventDefault()
+    e.preventDefault()
     MonSubmitForm()
 })
