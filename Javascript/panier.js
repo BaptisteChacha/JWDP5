@@ -83,7 +83,6 @@ function contactForm(url, submitValue) {
 
     })
         .then(response => response.json())
-       
         .then(response => localStorage.setItem("orderId", response.orderId))
         .catch(error => alert("Erreur : " + error));
 
@@ -98,6 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
     totalCart()
 })
 form.addEventListener("submit", function (e) {
-    e.preventDefault()
+   // e.preventDefault()
     MonSubmitForm()
 })

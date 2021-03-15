@@ -10,9 +10,10 @@ function confirm() {
 let utilisateurs = JSON.parse(localStorage.getItem("user"));
 let price_total = JSON.parse(localStorage.getItem("cart"));
 let resume = document.getElementById('resume');
+let orderId = JSON.stringify(localStorage.getItem('orderId'))
 console.log(utilisateurs)
     resume.innerHTML=`Bonjour ${utilisateurs.firstname} ${utilisateurs.lastName}. <br> 
     Nous vous confirmons votre commande pour un montant de ${price_total.total/100} €. <br>
-    Votre numero de commande est le  `
+    Votre numero de commande est le ${orderId}` 
 }
 confirm()
