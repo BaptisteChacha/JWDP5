@@ -57,13 +57,14 @@ function MonSubmitForm() {
             console.log(arrayCameras)
         }
     }
+    OrderId = [];
     if (arrayTeddies != 0) {
         submitValue.products = arrayTeddies
         contactForm('http://localhost:3000/api/teddies/order', submitValue)
     }
     if (arrayFurniture != 0) {
         submitValue.products = arrayFurniture
-        contactForm('http://localhost:3000/api/furniture/order', submitValue)
+        contactForm('http://localhost:3001/api/furniture/order', submitValue)
     }
     if (arrayCameras != 0) {
         submitValue.products = arrayCameras
@@ -71,10 +72,11 @@ function MonSubmitForm() {
     }
     addUser(submitValue.contact)
     console.log(submitValue)
+    //window.location = "confirmation.html"
 }
 
-function contactForm(url, submitValue) {
-    fetch(url, {
+async function contactForm(url, submitValue) {
+    let result = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(submitValue),
         headers: {
@@ -83,12 +85,17 @@ function contactForm(url, submitValue) {
         },
 
     })
-        .then(response => response.json())
-        .then(response => OrderId.push(response.orderId))
-        .then(response => console.log(OrderId))
-        .then(response => localStorage.setItem("orderId", OrderId))
-        .catch(error => alert("Erreur : " + error));
-
+    //.catch(error => alert("Erreur : " + error));
+    if (Response.ok == true) {
+        let response = await result.json()
+        console.log(response)
+        OrderId.push(response.orderId);
+        localStorage.setItem("orderId", JSON.stringify(OrderId))
+    }
+    else {
+     alert("Une erreur est survenue, veuillez réessayer plus tard.")
+     console.log(result)
+    }
 }
 /*var send = document.getElementById('envoi');
 send.addEventListener('click', function () {
