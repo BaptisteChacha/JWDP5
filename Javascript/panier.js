@@ -1,4 +1,20 @@
 let OrderId = []
+function disabled() {
+    document.getElementById("envoi").disabled=true;
+    document.getElementsByClassName("loader").disabled=true;
+}
+function completedForm() {
+    let form = JSON.parse(localStorage.getItem('user'));
+    console.log(form.firstname);
+    document.getElementById("completedFirstname").value = form.firstname;
+    document.getElementById("completedLastname"). value = form.lastName;
+    document.getElementById("completedAddress"). value = form.address;
+    document.getElementById("completedCity"). value = form.city;
+    document.getElementById("completedMail"). value = form.email;
+}
+if(localStorage.getItem("user") != null){
+completedForm()
+}
 function addUser(contact) {
     //On crée une variable avec les résultat du panier
     let user = {
@@ -64,7 +80,7 @@ function MonSubmitForm() {
     }
     if (arrayFurniture != 0) {
         submitValue.products = arrayFurniture
-        contactForm('http://localhost:3001/api/furniture/order', submitValue)
+        contactForm('http://localhost:3000/api/furniture/order', submitValue)
     }
     if (arrayCameras != 0) {
         submitValue.products = arrayCameras
@@ -72,7 +88,8 @@ function MonSubmitForm() {
     }
     addUser(submitValue.contact)
     console.log(submitValue)
-    //window.location = "confirmation.html"
+  //  window.location = "confirmation.html"
+    disabled()
 }
 
 async function contactForm(url, submitValue) {

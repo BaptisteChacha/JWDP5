@@ -70,4 +70,12 @@ form .form-control {
   font-weight: bold;
 }
 
+.loader {
+  height: 15%;
+  width: 15%;
+  padding-bottom: 2%;
+  padding-right: 7%;
+  opacity: 100%;
+}
+
 /*# sourceMappingURL=style.css.map */
