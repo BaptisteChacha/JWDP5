@@ -1,19 +1,20 @@
 let OrderId = []
-function disabled() {
-    document.getElementById("envoi").disabled=true;
-    document.getElementsByClassName("loader").disabled=true;
-}
+let loader = document.getElementById("loader");
+loader.style.visibility = "hidden"
+
 function completedForm() {
     let form = JSON.parse(localStorage.getItem('user'));
     console.log(form.firstname);
     document.getElementById("completedFirstname").value = form.firstname;
-    document.getElementById("completedLastname"). value = form.lastName;
-    document.getElementById("completedAddress"). value = form.address;
-    document.getElementById("completedCity"). value = form.city;
-    document.getElementById("completedMail"). value = form.email;
+    document.getElementById("completedLastname").value = form.lastName;
+    document.getElementById("completedAddress").value = form.address;
+    document.getElementById("completedCity").value = form.city;
+    document.getElementById("completedMail").value = form.email;
 }
-if(localStorage.getItem("user") != null){
-completedForm()
+
+
+if (localStorage.getItem("user") != null) {
+    completedForm()
 }
 function addUser(contact) {
     //On crée une variable avec les résultat du panier
@@ -28,9 +29,20 @@ function addUser(contact) {
         user))
 
 }
-function MonSubmitForm() {
+function mySubmitForm() {
     let myForm = document.getElementById('formOrder');
+    loader.style.visibility = "visible"
     let formData = new FormData(myForm);
+    document.getElementById('envoi').disabled = 'disabled';
+
+    var message = document.getElementById("completedMail").value
+    var regex = new RegExp(`var regex = ^[^\W][a-zA-Z0-9\-\._]+[^\W]@[^\W][a-zA-Z0-9\-\._]+[^\W]\.[a-zA-Z]{2,6}$`)
+    console.log(message)
+    if (message.match(regex)) {
+        console.log('Salut')
+    } else {
+        console.log('Faux')
+    }
 
     const submitValue = {
         contact: {
@@ -88,8 +100,7 @@ function MonSubmitForm() {
     }
     addUser(submitValue.contact)
     console.log(submitValue)
-  //  window.location = "confirmation.html"
-    disabled()
+    window.location = "confirmation.html"
 }
 
 async function contactForm(url, submitValue) {
@@ -100,7 +111,6 @@ async function contactForm(url, submitValue) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-
     })
     //.catch(error => alert("Erreur : " + error));
     if (Response.ok == true) {
@@ -110,14 +120,11 @@ async function contactForm(url, submitValue) {
         localStorage.setItem("orderId", JSON.stringify(OrderId))
     }
     else {
-     alert("Une erreur est survenue, veuillez réessayer plus tard.")
-     console.log(result)
+        alert("Une erreur est survenue, veuillez réessayer plus tard.")
+        console.log(result)
     }
 }
-/*var send = document.getElementById('envoi');
-send.addEventListener('click', function () {
-    addUser();
-});*/
+
 let form = document.getElementById("formOrder")
 document.addEventListener("DOMContentLoaded", function () {
     displayCart()
@@ -125,5 +132,5 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 form.addEventListener("submit", function (e) {
     e.preventDefault()
-    MonSubmitForm()
+    mySubmitForm()
 })

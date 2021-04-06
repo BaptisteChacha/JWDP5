@@ -130,7 +130,7 @@ const displayCart = () => {
 `
 
         //Recuperation de l'ID
-    //    console.log(id)
+        //    console.log(id)
         produit.className = "col-12"
         cart.appendChild(produit)
         //test ajout quantité

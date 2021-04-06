@@ -70,12 +70,25 @@ form .form-control {
   font-weight: bold;
 }
 
-.loader {
+#loader {
   height: 15%;
   width: 15%;
   padding-bottom: 2%;
   padding-right: 7%;
-  opacity: 100%;
+}
+
+span {
+  color: red;
+}
+
+#argent {
+  display: block;
+  margin-left: auto;
+  height: 20%;
+  width: 20%;
+  float: right;
+  padding-top: 1%;
+  padding-right: 1%;
 }
 
 /*# sourceMappingURL=style.css.map */
