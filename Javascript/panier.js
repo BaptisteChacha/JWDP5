@@ -36,12 +36,11 @@ function mySubmitForm() {
     document.getElementById('envoi').disabled = 'disabled';
 
     var message = document.getElementById("completedMail").value
-    var regex = new RegExp(`var regex = ^[^\W][a-zA-Z0-9\-\._]+[^\W]@[^\W][a-zA-Z0-9\-\._]+[^\W]\.[a-zA-Z]{2,6}$`)
+    var regex = new RegExp(`^[^\W][a-zA-Z0-9\-\._]+[^\W]@[^\W][a-zA-Z0-9\-\._]+[^\W]\.[a-zA-Z]{2,6}$`)
     console.log(message)
     if (message.match(regex)) {
-        console.log('Salut')
     } else {
-        console.log('Faux')
+        alert('Votre adrese mail n\'est pas valide')
     }
 
     const submitValue = {
@@ -100,7 +99,7 @@ function mySubmitForm() {
     }
     addUser(submitValue.contact)
     console.log(submitValue)
-    window.location = "confirmation.html"
+   // window.location = "confirmation.html"
 }
 
 async function contactForm(url, submitValue) {
@@ -117,11 +116,13 @@ async function contactForm(url, submitValue) {
         let response = await result.json()
         console.log(response)
         OrderId.push(response.orderId);
+        console.log(OrderId)
         localStorage.setItem("orderId", JSON.stringify(OrderId))
     }
     else {
         alert("Une erreur est survenue, veuillez réessayer plus tard.")
         console.log(result)
+        //window.location="panier.html"
     }
 }
 

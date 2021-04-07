@@ -66,9 +66,7 @@ async function info() {
 
         });
     }
-    else {
-        alert('Bonjour')
-    }
+    
 }
 /*let obj = localStorage.getItem('user');
 console.log(obj.address)*/
