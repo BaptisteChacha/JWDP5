@@ -57,7 +57,8 @@ async function info() {
         <hr>
     `
         //On crée la classe div comme on la souhaite
-        informations.className = "col-12 col-lg-4";
+        informations.className = "col-12 col-lg-4 col-sm-12";
+        display.className = "col-sm-12"
         display.appendChild(informations);
         var bouton = document.getElementById("bouton");
         bouton.addEventListener('click', function () {

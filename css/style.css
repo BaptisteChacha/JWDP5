@@ -81,16 +81,6 @@ span {
   color: red;
 }
 
-#argent {
-  display: block;
-  margin-left: auto;
-  height: 20%;
-  width: 20%;
-  float: right;
-  padding-top: 1%;
-  padding-right: 1%;
-}
-
 strong {
   text-align: center;
 }
@@ -115,6 +105,25 @@ strong {
 
 #insta {
   width: 10%;
+}
+
+@media (min-width: 320px) and (max-width: 1023px) {
+  #Info {
+    margin-left: 0%;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 320px) {
+  h2, h3, h4 {
+    font-size: x-large;
+  }
+
+  #envoi {
+    margin-left: 7%;
+  }
+
+  .list-inline {
+    display: grid;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

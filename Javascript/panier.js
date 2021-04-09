@@ -87,19 +87,22 @@ function mySubmitForm() {
     OrderId = [];
     if (arrayTeddies != 0) {
         submitValue.products = arrayTeddies
+        console.log(submitValue)
         contactForm('http://localhost:3000/api/teddies/order', submitValue)
     }
     if (arrayFurniture != 0) {
         submitValue.products = arrayFurniture
+        console.log(submitValue)
         contactForm('http://localhost:3000/api/furniture/order', submitValue)
     }
     if (arrayCameras != 0) {
         submitValue.products = arrayCameras
+        console.log(submitValue)
         contactForm('http://localhost:3000/api/cameras/order', submitValue)
     }
     addUser(submitValue.contact)
     console.log(submitValue)
-   // window.location = "confirmation.html"
+    window.location = "confirmation.html"
 }
 
 async function contactForm(url, submitValue) {
@@ -112,17 +115,19 @@ async function contactForm(url, submitValue) {
         },
     })
     //.catch(error => alert("Erreur : " + error));
-    if (Response.ok == true) {
-        let response = await result.json()
+    let response = result.json()
+    if (response.ok == true) {
         console.log(response)
         OrderId.push(response.orderId);
         console.log(OrderId)
         localStorage.setItem("orderId", JSON.stringify(OrderId))
+        alert("salut")
     }
     else {
+        loader.style.visibility = "hidden"
+        document.getElementById('envoi').disabled = false;
         alert("Une erreur est survenue, veuillez réessayer plus tard.")
         console.log(result)
-        //window.location="panier.html"
     }
 }
 

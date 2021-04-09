@@ -3,12 +3,12 @@ function confirm() {
     let utilisateurs = JSON.parse(localStorage.getItem("user"));
     let price_total = JSON.parse(localStorage.getItem("cart"));
     let resume = document.getElementById('resume');
-    let OrderIds = JSON.parse(localStorage.getItem('orderId'))
+    let OrderId = JSON.parse(localStorage.getItem('orderId'))
     console.log(utilisateurs)
-    console.log(OrderIds)
+    console.log(OrderId)
     resume.innerHTML = `Bonjour ${utilisateurs.firstname} ${utilisateurs.lastName}. <br> 
     Nous vous confirmons votre commande pour un montant de <span> ${price_total.total / 100} € </span>. <br>
-    Votre numero de commande est le "${OrderIds.join(', ')}". <br> <br>
+    Votre numero de commande est le "${OrderId.join(', ')}". <br> <br>
     <div class = "livraison"> <strong> Votre lieu de livraison: </strong> <br> ${utilisateurs.address} ${utilisateurs.city} </div> <br>
     Nous vous remerçions pour votre commande, a très bientôt <br> <br>
     <img id="fb" alt="fb" src="images/fb_logo.png">
