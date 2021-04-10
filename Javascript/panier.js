@@ -115,15 +115,17 @@ async function contactForm(url, submitValue) {
         },
     })
     //.catch(error => alert("Erreur : " + error));
-    let response = result.json()
-    if (response.ok == true) {
+    
+    if (result.ok == true) {
+        let response = await result.json()
         console.log(response)
         OrderId.push(response.orderId);
         console.log(OrderId)
         localStorage.setItem("orderId", JSON.stringify(OrderId))
         alert("salut")
+        console.log(result)
     }
-    else {
+    else /*if (response.ok == false)*/{
         loader.style.visibility = "hidden"
         document.getElementById('envoi').disabled = false;
         alert("Une erreur est survenue, veuillez réessayer plus tard.")
