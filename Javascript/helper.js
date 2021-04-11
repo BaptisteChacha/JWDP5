@@ -73,7 +73,7 @@ function addToCart(name, price, id, imageUrl, color) {
     localStorage.setItem("cart", JSON.stringify(
         localS
     ))
-
+alert('Produit ajouté au panier')
 }
 //Test function removeCart
 function removeToCart(name, price, id, imageUrl, color) {
@@ -88,6 +88,9 @@ function removeToCart(name, price, id, imageUrl, color) {
         delete localS.items[name + "__" + color]
     }
     localStorage.setItem("cart", JSON.stringify(localS))
+    if (localStorage.cart.items == null){
+        document.getElementById('envoi').disabled = true;
+    }
 }
 
 

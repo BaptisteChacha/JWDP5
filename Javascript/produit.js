@@ -4,16 +4,22 @@ const product = urlParams.get('product');
 document.addEventListener("DOMContentLoaded", function () {
     switch (product) {
         case "teddies":
-            displayProduct(/*fetch(*/'http://localhost:3000/api/teddies')
-            /*  .then(response => response.json())
+            displayProduct(fetch('http://localhost:3000/api/teddies')
+              .then(response => response.json())
               .then(response => alert(JSON.stringify(response)))
-              .catch(error => alert("Erreur : " + error)));*/
+              .catch(alert("Une erreur est survenu, veuillez réessayer plus tard")));
             break;
         case "furniture":
-            displayProduct('http://localhost:3000/api/furniture')
+            displayProduct(fetch('http://localhost:3000/api/furniture')
+              .then(response => response.json())
+              .then(response => alert(JSON.stringify(response)))
+              .catch(alert("Une erreur est survenu, veuillez réessayer plus tard")));
             break;
         case "cameras":
-            displayProduct('http://localhost:3000/api/cameras')
+            displayProduct(fetch('http://localhost:3000/api/cameras')
+              .then(response => response.json())
+              .then(response => alert(JSON.stringify(response)))
+              .catch(alert("Une erreur est survenu, veuillez réessayer plus tard")));
             break;
         default:
             alert("aucun produit trouvé")

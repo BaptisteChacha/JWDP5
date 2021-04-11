@@ -2,6 +2,7 @@ let OrderId = []
 let loader = document.getElementById("loader");
 loader.style.visibility = "hidden"
 
+
 function completedForm() {
     let form = JSON.parse(localStorage.getItem('user'));
     console.log(form.firstname);
@@ -102,36 +103,40 @@ function mySubmitForm() {
     }
     addUser(submitValue.contact)
     console.log(submitValue)
-    window.location = "confirmation.html"
+    /* function redirect () {
+         window.location = "confirmation.html"
+     }
+     setTimeout(redirect, 1000)*/
 }
 
 async function contactForm(url, submitValue) {
-    let result = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(submitValue),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    })
-    //.catch(error => alert("Erreur : " + error));
-    
-    if (result.ok == true) {
+    try {
+        let result = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(submitValue),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        });
+        //.catch(error => alert("Erreur : " + error));
+        console.log(result);
         let response = await result.json()
         console.log(response)
         OrderId.push(response.orderId);
         console.log(OrderId)
         localStorage.setItem("orderId", JSON.stringify(OrderId))
-        alert("salut")
         console.log(result)
-    }
-    else /*if (response.ok == false)*/{
+        window.location = "confirmation.html"
+        
+    } catch (error) {
         loader.style.visibility = "hidden"
         document.getElementById('envoi').disabled = false;
         alert("Une erreur est survenue, veuillez réessayer plus tard.")
         console.log(result)
     }
 }
+
 
 let form = document.getElementById("formOrder")
 document.addEventListener("DOMContentLoaded", function () {

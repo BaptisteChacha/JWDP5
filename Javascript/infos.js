@@ -1,7 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 let type = urlParams.get('type');
 let id = urlParams.get('id');
-console.log(type, id)
+console.log(type, id);
+
 
 
 async function info() {
@@ -69,12 +70,5 @@ async function info() {
     }
     
 }
-/*let obj = localStorage.getItem('user');
-console.log(obj.address)*/
-/*var array = document.getElementById('bouton')
-array.addEventListener("click", function() {*/
-
-//});
-
 
 info()

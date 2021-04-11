@@ -32,10 +32,7 @@ label {
 img {
     width: 100%;
 }
-.confirm {
-    text-align: end;
-    padding-right: 10%;
-}
+
 .navbar-brand {
     img {
         width: 40px;
@@ -95,7 +92,19 @@ strong{
     #Info {
       margin-left: 0%;
     }
-  }
+    #anim {
+        .card {
+            min-height: 30px;
+            text-align: center;
+            &:hover {
+                transform: scale(1.0);
+            }
+            &-text {
+                min-height: 6em;
+            }
+        }
+    }
+}
 @media screen and (min-width:320px) and (max-width:320px){
     h2, h3, h4{
         font-size: x-large;
