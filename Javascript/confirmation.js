@@ -12,8 +12,6 @@ function confirm() {
     else if (OrderId.length >= 2) {
         quantificateur = "vos"
     }
-    console.log(utilisateurs)
-    console.log(OrderId)
     //On crée un petit message recapitulatif pour l'utilisateur
     resume.innerHTML = `Bonjour ${utilisateurs.firstname} ${utilisateurs.lastName}. <br> 
     Nous vous confirmons votre commande pour un montant de <span> ${price_total.total / 100} € </span>. <br>

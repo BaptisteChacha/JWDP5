@@ -13,7 +13,6 @@ function displayProduct(url) {
             //On créé une boucle pour chaque éléments dispo
             results.forEach(element => {
                 //On affiche ces éléments dans la console
-                console.log(element)
                 //On crée une nouvelle div
                 let product = document.createElement('div')
                 //On crée la div comme on la souhaite
@@ -32,8 +31,6 @@ function displayProduct(url) {
 
                 product.className = "col-12 col-lg-4"
                 productDiv.appendChild(product)
-                console.log(element)
-                console.log(url)
             });
 
         }
@@ -55,7 +52,6 @@ function addToCart(name, price, id, imageUrl, color) {
             total: 0
         };
     }
-    console.log(localS.items)
     //Si un produit est different de undefined, on l'incrémente de 1
     if (localS.items[name + "__" + color] != undefined) {
         localS.items[name + "__" + color].quantity++;
@@ -92,7 +88,6 @@ function removeToCart(name, price, id, imageUrl, color) {
     } 
     if (localStorage.cart.total == '0'){
         localStorage.removeItem('cart')
-        console.log(localStorage.cart.total)
     }
     //Si le panier est vide, on desactive la bouton confirmer
     localStorage.setItem("cart", JSON.stringify(localS))
@@ -110,7 +105,6 @@ const displayCart = () => {
         let element = localS.items[i];
         //On remplace tout les espace dans le nom et la couleur par des underscore et on enregistre dans la variable id
         let id = element.name.replace(" ", "") + "__" + element.color.replace(" ", "");
-        console.log(element)
         //On crée une nouvelle div
         let produit = document.createElement('div')
         //On crée la classe div comme on la souhaite

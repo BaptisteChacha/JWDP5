@@ -1,7 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 let type = urlParams.get('type');
 let id = urlParams.get('id');
-console.log(type, id);
 
 
 
@@ -21,7 +20,6 @@ async function info() {
         let choice = []
         //On recupere la réponse au format JSON
         const resultats = await response.json()
-        console.log(resultats)
         //On cree une condition; si le type est teddies, on cree un tableau avec le choix des personnalisations
         if (type == "teddies") {
             choice = resultats.colors
