@@ -2,8 +2,8 @@ function displayProduct(url) {
     httpRequest = new XMLHttpRequest()
 
     httpRequest.onreadystatechange = function () {
-        //Récuperer la variable produit depuis URL en type GET
         const urlParams = new URLSearchParams(window.location.search);
+        //Récuperer la variable produit depuis URL
         const type = urlParams.get('product');
         if (httpRequest.readyState == 4) {
             //On parse la reponse JSON pour pouvoir la lire
@@ -16,7 +16,7 @@ function displayProduct(url) {
                 console.log(element)
                 //On crée une nouvelle div
                 let product = document.createElement('div')
-                //On crée la classe div comme on la souhaite
+                //On crée la div comme on la souhaite
                 product.innerHTML = `
                 <div class="card border-primary shadow">
                     <img class="card-img-top" src="${element.imageUrl}" alt="Présentation" width="100%">
@@ -56,9 +56,10 @@ function addToCart(name, price, id, imageUrl, color) {
         };
     }
     console.log(localS.items)
+    //Si un produit est different de undefined, on l'incrémente de 1
     if (localS.items[name + "__" + color] != undefined) {
         localS.items[name + "__" + color].quantity++;
-    } else {
+    } else { //Sinon on ajoute ce produit au panier avec toutes les infos nécessaires
         localS.items[name + "__" + color] = {
             name: name,
             price: price,
@@ -69,6 +70,7 @@ function addToCart(name, price, id, imageUrl, color) {
             type: type,
         }
     }
+    //On calcule le prix total
     localS.total = localS.total + price
     localStorage.setItem("cart", JSON.stringify(
         localS
@@ -82,26 +84,31 @@ function removeToCart(name, price, id, imageUrl, color) {
     price = parseFloat(price)
     if (localS.items[name + "__" + color] != undefined) {
         localS.items[name + "__" + color].quantity--;
-    }
+    } // On enlèvre le prix de l'element supprimé du prix total
     localS.total = localS.total - price;
+    //Si la quantité du produit est egal a 0, on le supprime du panier
     if (localS.items[name + "__" + color].quantity == 0) {
         delete localS.items[name + "__" + color]
+    } 
+    if (localStorage.cart.total == '0'){
+        localStorage.removeItem('cart')
+        console.log(localStorage.cart.total)
     }
+    //Si le panier est vide, on desactive la bouton confirmer
     localStorage.setItem("cart", JSON.stringify(localS))
-    if (localStorage.cart.items == null){
-        document.getElementById('envoi').disabled = true;
-    }
 }
 
-
+//Fonction pour afficher le panier
 const displayCart = () => {
+    //On recupère le panier
     let localS = JSON.parse(localStorage.getItem("cart"))
     const cart = document.getElementById('resultat')
     cart.innerHTML = '';
-    //affichage du panier sur la page panier
+    // On crée une boucle pour passer en revue tout les items
     for (let i in localS.items) {
-        //On affiche ces éléments dans la console
+        //On enregistre chaque item dans une variable element
         let element = localS.items[i];
+        //On remplace tout les espace dans le nom et la couleur par des underscore et on enregistre dans la variable id
         let id = element.name.replace(" ", "") + "__" + element.color.replace(" ", "");
         console.log(element)
         //On crée une nouvelle div
@@ -132,13 +139,12 @@ const displayCart = () => {
                 <hr>
 `
 
-        //Recuperation de l'ID
-        //    console.log(id)
         produit.className = "col-12"
         cart.appendChild(produit)
-        //test ajout quantité
+        //On enregistre le bouton pour ajouter ainsi que la variable qui contient le produit dans une autre variable
         var add = document.getElementById("btn_add" + id);
         var less = document.getElementById("btn_less" + id);
+        //On ecoute si l'evenement click a lieu sur le bouton add
         add.addEventListener("click", function () {
             addToCart(element.name, element.price, element.id, element.imageUrl, element.color)
             displayCart();
@@ -149,44 +155,12 @@ const displayCart = () => {
             displayCart();
             totalCart();
         })
-        let typo = element.type
-        console.log(typo)
     }
 }
 
 
-//Test
-function Info(url) {
-    Request = new XMLHttpRequest()
 
-    Request.onreadystatechange = function () {
-        if (Request.readyState == 4) {
-            //On parse la reponse JSON pour pouvoir la lire
-            const infoResults = JSON.parse(Request.responseText)
-            //On recupère l'élément ayant pour ID "product"
-            const infoDiv = document.getElementById('resume')
-            //On crée une nouvelle div
-            let info = document.createElement('div')
-            //On crée la classe div comme on la souhaite
-            info.innerHTML = `
-                <div class="card border-primary shadow">
-                    Bonjour monsieur ${infoResults.firstname}
-                    </div>
-                </div>
-                <hr>
-            `
-            info.className = "col-12 col-lg-4"
-            infoDiv.appendChild(info)
-        }
-
-    }
-
-    //On ouvre une nouvelle connexion
-    Request.open('GET', url, true)
-    Request.send()
-}
-//Fin de test
-
+//Fonction pour calculer le prix total
 const totalCart = () => {
     const totalPrice = document.getElementById('total')
     const cart = JSON.parse(localStorage.getItem("cart"))
@@ -196,4 +170,7 @@ const totalCart = () => {
     prices.innerHTML = ` <p class="card-text"> <strong>Prix total: </strong> ${cart.total / 100}€`
     prices.className = "col-12"
     totalPrice.appendChild(prices)
+    if (cart.total == '0'){
+        document.getElementById("envoi").disabled = true
+    }
 }
